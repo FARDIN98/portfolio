@@ -1,20 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-
+ 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaDownload } from 'react-icons/fa';
 import { HiArrowNarrowRight } from 'react-icons/hi';
-
+ 
 const Hero = () => {
   return (
     <div id="home" className="w-full h-[100dvh] bg-gradient-to-b from-black via-black to-gray-800">
-      <div className="max-w-screen-lg mx-auto flex flex-col-reverse items-center justify-center h-full px-4 md:flex-row gap-12 md:gap-8">
+      <div className="max-w-screen-lg mx-auto flex flex-col-reverse items-center justify-center h-full px-4 md:flex-row md:gap-8">
         <motion.div 
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col justify-center items-center md:items-start h-full w-full md:max-w-2xl">
+          className="flex flex-col justify-center items-center md:items-start flex-1 md:max-w-2xl">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center md:text-left mb-4">
             A Front End Developer
           </h2>
@@ -23,7 +23,7 @@ const Hero = () => {
             Currently, I love to work on web applications using technologies like
             React, Tailwind & Next.js.
           </p>
-
+ 
           <div className="flex gap-6 mb-8 justify-center md:justify-start w-full">
             <a 
               href="https://www.linkedin.com/in/fardin-ahmed/" 
@@ -42,7 +42,7 @@ const Hero = () => {
               <FaGithub size={32} />
             </a>
           </div>
-
+ 
           <div className="flex justify-center md:justify-start w-full gap-4">
             <Link
               href="#project"
@@ -63,12 +63,12 @@ const Hero = () => {
             </a>
           </div>
         </motion.div>
-
+ 
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0 pt-20 md:pt-0"
+          className="w-full md:w-1/2 flex justify-center items-center mb-0 md:mb-0 pt-20 md:pt-0 flex-1"
         >
           <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
             <div className="w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-68 lg:h-68 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
@@ -80,5 +80,5 @@ const Hero = () => {
     </div>
   );
 };
-
+ 
 export default Hero;
