@@ -16,7 +16,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col justify-center items-center md:items-start h-full w-full md:max-w-2xl">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center md:text-left mb-4">
-            A Front end Developer
+            A Front End Developer
           </h2>
           <p className="text-gray-400 py-4 max-w-md text-base sm:text-lg text-center md:text-left mb-6">
             I have experience building and designing software.
