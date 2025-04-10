@@ -4,41 +4,41 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { navLinks } from '@/data';
+import useScrollEffect from '@/hooks/useScrollEffect';
 
+/**
+ * Navigation component with responsive mobile menu
+ */
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  const links = [
-    { id: 1, link: 'home' },
-    { id: 2, link: 'skills' },
-    { id: 3, link: 'project' },
-    { id: 4, link: 'blog' },
-    { id: 5, link: 'contact' },
-  ];
+  const [isMobile, setIsMobile] = useState(false);
+  const scrolled = useScrollEffect(10);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+    // Check if we're on mobile view
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
+    
+    // Initial check
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleClick = () => setNav(!nav);
 
   return (
-    <motion.div
+    <motion.header
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`fixed w-full h-16 sm:h-20 z-50 flex justify-between items-center px-3 sm:px-4 md:px-8 lg:px-16 ${scrolled ? 'bg-black/80 backdrop-blur-md shadow-lg' : 'bg-transparent'} transition-all duration-300`}
+      className={`fixed top-0 left-0 w-full h-16 sm:h-20 z-50 flex justify-between items-center px-3 sm:px-4 md:px-8 lg:px-16 ${scrolled || isMobile ? 'bg-black/80 backdrop-blur-md shadow-lg' : 'bg-transparent'} transition-all duration-300`}
     >
       <div>
         <Link href="#home">
@@ -47,16 +47,18 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Menu */}
-      <ul className="hidden md:flex">
-        {links.map(({ id, link }) => (
-          <li
-            key={id}
-            className="px-4 cursor-pointer capitalize font-medium text-white hover:text-gray-300 hover:scale-105 duration-200"
-          >
-            <Link href={`#${link}`}>{link}</Link>
-          </li>
-        ))}
+      <nav aria-label="Desktop navigation">
+        <ul className="hidden md:flex">
+          {navLinks.map(({ id, link, label }) => (
+            <li
+              key={id}
+              className="px-4 cursor-pointer capitalize font-medium text-white hover:text-gray-300 hover:scale-105 duration-200"
+            >
+              <Link href={`#${link}`}>{label || link}</Link>
+            </li>
+          ))}
       </ul>
+      </nav>
 
       {/* Mobile Menu Icon */}
       <div
@@ -69,25 +71,27 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {nav && (
-        <motion.ul
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-[100dvh] bg-black/80 backdrop-blur-md text-white"
-        >
-          {links.map(({ id, link }) => (
-            <li
-              key={id}
-              className="px-4 cursor-pointer capitalize py-4 sm:py-6 text-2xl sm:text-3xl hover:text-cyan-400 hover:scale-105 duration-300 transform transition-all border-b-2 border-transparent hover:border-cyan-400"
-            >
-              <Link onClick={handleClick} href={`#${link}`}>
-                {link}
-              </Link>
-            </li>
-          ))}
+        <nav aria-label="Mobile navigation">
+          <motion.ul
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col justify-center items-center fixed top-0 left-0 w-full h-[100dvh] bg-black/80 backdrop-blur-md text-white"
+          >
+            {navLinks.map(({ id, link, label }) => (
+              <li
+                key={id}
+                className="px-4 cursor-pointer capitalize py-4 sm:py-6 text-2xl sm:text-3xl hover:text-cyan-400 hover:scale-105 duration-300 transform transition-all border-b-2 border-transparent hover:border-cyan-400"
+              >
+                <Link onClick={handleClick} href={`#${link}`}>
+                  {label || link}
+                </Link>
+              </li>
+            ))}
         </motion.ul>
+        </nav>
       )}
-    </motion.div>
+    </motion.header>
   );
 };
 
