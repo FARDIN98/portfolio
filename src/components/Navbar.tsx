@@ -61,9 +61,10 @@ const Navbar = () => {
       {/* Mobile Menu Icon */}
       <div
         onClick={handleClick}
-        className="cursor-pointer pr-4 z-10 text-white md:hidden"
+        className="cursor-pointer p-5 z-10 text-white md:hidden rounded-full hover:bg-gray-800/50 transition-colors active:bg-gray-700/70 flex items-center justify-center m-2"
+        aria-label="Toggle menu"
       >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
+        {nav ? <FaTimes size={28} /> : <FaBars size={28} />}
       </div>
 
       {/* Mobile Menu */}
