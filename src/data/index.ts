@@ -92,7 +92,7 @@ export const heroContent = {
     },
     {
       text: "My CV",
-      href: "/cv.pdf",
+      href: "/Fardin-CV.pdf",
       icon: "download",
       download: true
     }
